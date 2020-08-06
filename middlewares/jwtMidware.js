@@ -18,7 +18,7 @@ const getUser = token => {
 };
 
 function jwtAuth(req, res, next) {
-    log("jwtauth midware")
+    // log("jwtauth midware")
     if (req.headers) {
         if (req.headers.authorization) {
             var auth = req.headers.authorization
@@ -26,11 +26,11 @@ function jwtAuth(req, res, next) {
             var parts = auth.split(" ")
             var bearer = parts[0]
             var token = parts[1]
-            log()
+            // log()
             if (bearer == "Bearer") {
                 req.user = getUser(token)
             }
-            log(token, req.user)
+            // log(token, req.user)
         }
     }
     next()

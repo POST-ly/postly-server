@@ -8,25 +8,22 @@ module.exports = (router) => {
     router
         .route('/teams')
         .get(teamCtrl.getTeams)
-
-    /**
-     * get team by id
-     */
-    router
-        .route('/teams/:teamId')
-        .get(teamCtrl.getTeamById)
     
-    /**
-     * create a team
-     */
-        router
-            .post("/teams")
-
     /**
      * edit a team
      */
-        router
-            .put("/teams/:teamId")
+    router
+        .route("/teams/:teamId")
+        .post(teamCtrl.editTeam)
+
+
+    /**
+     * Delete a team
+     */
+    router
+        .route("/teams/:teamId")
+        .delete(teamCtrl.deleteTeam)
+
 
     // API v1
 
@@ -34,8 +31,16 @@ module.exports = (router) => {
      * load teams belonged by a user
      */
     router
-        .route('/teams/:userId')
+        .route('/teams/user')
         .get(teamCtrl.getTeamsByUserId)
+
+    /**
+     * load a team and populate with its 
+     * collections, requests, history, envs, mockservers belonged by a user
+     */
+    router
+        .route('/team/user/:teamId')
+        .get(teamCtrl.getTeamsColsReqsByUserId)
 
     /**
      * create a team
@@ -79,4 +84,10 @@ module.exports = (router) => {
         .route('/team/remove/collection')
         .post(teamCtrl.removeCollectionFromTeam)
 
+    /**
+     * Import a collection
+     */
+    router
+        .route("/team/collection/import")
+        .post(teamCtrl.importCollection)
 }
